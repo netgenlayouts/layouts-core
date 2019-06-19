@@ -292,23 +292,11 @@ services:
         public: true
         parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_layouts.configuration"
-            - "@security.csrf.token_manager"
-
-    netgen_layouts.controller.api.config.load_block_types:
-        class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config\LoadBlockTypes
-        public: true
-        parent: netgen_layouts.controller.base
-        arguments:
+            - "@netgen_layouts.layout.registry.layout_type"
             - "@netgen_layouts.block.registry.block_type"
             - "@netgen_layouts.block.registry.block_type_group"
-
-    netgen_layouts.controller.api.config.load_layout_types:
-        class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config\LoadLayoutTypes
-        public: true
-        parent: netgen_layouts.controller.base
-        arguments:
-            - "@netgen_layouts.layout.registry.layout_type"
+            - "@netgen_layouts.configuration"
+            - "@security.csrf.token_manager"
 
     ## Layout controllers
 
