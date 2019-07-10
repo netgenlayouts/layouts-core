@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer;
 use Generator;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View;
+use Netgen\Layouts\API\Values\Block\BlockList;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -21,7 +22,7 @@ final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwar
         /** @var \Netgen\Layouts\API\Values\Block\Placeholder $placeholder */
         $placeholder = $object->getValue();
 
-        $blocks = $this->buildViewValues($placeholder);
+        $blocks = $this->buildViewValues($placeholder->getBlocks());
 
         return [
             'identifier' => $placeholder->getIdentifier(),
@@ -39,16 +40,16 @@ final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwar
     }
 
     /**
-     * Builds the list of View objects for provided list of values.
+     * Builds the list of View objects for provided list of blocks.
      *
      * @param iterable<object> $values
      *
      * @return \Generator<array-key, \Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View>
      */
-    private function buildViewValues(iterable $values): Generator
+    private function buildViewValues(BlockList $blockList): Generator
     {
-        foreach ($values as $key => $value) {
-            yield $key => new View($value);
+        foreach ($blockList as $block) {
+            yield $block->getId()->toString() => new View($block);
         }
     }
 }

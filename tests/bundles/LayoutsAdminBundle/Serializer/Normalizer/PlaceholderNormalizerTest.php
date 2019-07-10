@@ -12,6 +12,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Serializer;
 
 final class PlaceholderNormalizerTest extends TestCase
@@ -33,7 +34,9 @@ final class PlaceholderNormalizerTest extends TestCase
      */
     public function testNormalize(): void
     {
-        $block = new Block();
+        $blockUuid = Uuid::uuid4();
+        $block = Block::fromArray(['id' => $blockUuid]);
+
         $placeholder = Placeholder::fromArray(
             [
                 'identifier' => 'main',
@@ -44,7 +47,7 @@ final class PlaceholderNormalizerTest extends TestCase
         self::assertSame(
             [
                 'identifier' => 'main',
-                'blocks' => ['data'],
+                'blocks' => [$blockUuid->toString() => 'data'],
             ],
             $this->normalizer->normalize(new Value($placeholder))
         );

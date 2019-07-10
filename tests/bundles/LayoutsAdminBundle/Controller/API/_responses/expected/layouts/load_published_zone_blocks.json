@@ -1,5 +1,5 @@
-[
-    {
+{
+    "28df256a-2467-5527-b398-9269ccc652de": {
         "id": "28df256a-2467-5527-b398-9269ccc652de",
         "layout_id": "81168ed3-86f9-55ea-b153-101f96f2c136",
         "definition_identifier": "list",
@@ -24,25 +24,25 @@
         "always_available": true,
         "is_container": false,
         "placeholders": [],
-        "collections": [
-            {
+        "collections": {
+            "default": {
                 "identifier": "default",
                 "collection_id": "45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a",
                 "collection_type": 1,
                 "offset": 0,
                 "limit": null
             },
-            {
+            "featured": {
                 "identifier": "featured",
                 "collection_id": "da050624-8ae0-5fb9-ae85-092bf8242b89",
                 "collection_type": 1,
                 "offset": 4,
                 "limit": 2
             }
-        ],
+        },
         "config": []
     },
-    {
+    "c2a30ea3-95ef-55b0-a584-fbcfd93cec9e": {
         "id": "c2a30ea3-95ef-55b0-a584-fbcfd93cec9e",
         "layout_id": "81168ed3-86f9-55ea-b153-101f96f2c136",
         "definition_identifier": "list",
@@ -67,15 +67,15 @@
         "always_available": true,
         "is_container": false,
         "placeholders": [],
-        "collections": [
-            {
+        "collections": {
+            "default": {
                 "identifier": "default",
                 "collection_id": "08937ca0-18f4-5806-84df-8c132c36cabe",
                 "collection_type": 1,
                 "offset": 0,
                 "limit": null
             }
-        ],
+        },
         "config": []
     }
-]
+}

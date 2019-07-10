@@ -49,7 +49,7 @@ final class LoadZoneBlocks extends AbstractController
 
         $blocks = [];
         foreach ($this->blockService->loadZoneBlocks($zone, [$locale]) as $block) {
-            $blocks[] = new View($block);
+            $blocks[$block->getId()->toString()] = new View($block);
         }
 
         return new ArrayValue($blocks);

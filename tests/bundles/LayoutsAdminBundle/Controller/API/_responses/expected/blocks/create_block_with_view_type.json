@@ -23,14 +23,14 @@
     "always_available": true,
     "is_container": false,
     "placeholders": [],
-    "collections": [
-        {
+    "collections": {
+        "default": {
             "identifier": "default",
             "collection_id": "@uuid@",
             "collection_type": 0,
             "offset": 0,
             "limit": null
         }
-    ],
+    },
     "config": []
 }

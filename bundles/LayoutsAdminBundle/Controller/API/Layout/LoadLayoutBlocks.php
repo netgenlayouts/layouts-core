@@ -39,7 +39,7 @@ final class LoadLayoutBlocks extends AbstractController
         $blocks = [];
         foreach ($layout as $zone) {
             foreach ($this->blockService->loadZoneBlocks($zone, [$locale]) as $block) {
-                $blocks[] = new View($block);
+                $blocks[$block->getId()->toString()] = new View($block);
             }
         }
 

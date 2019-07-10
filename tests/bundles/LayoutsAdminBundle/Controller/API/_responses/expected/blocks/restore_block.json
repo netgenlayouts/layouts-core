@@ -23,21 +23,21 @@
     "always_available": true,
     "is_container": false,
     "placeholders": [],
-    "collections": [
-        {
+    "collections": {
+        "default": {
             "identifier": "default",
             "collection_id": "45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a",
             "collection_type": 1,
             "offset": 0,
             "limit": null
         },
-        {
+        "featured": {
             "identifier": "featured",
             "collection_id": "da050624-8ae0-5fb9-ae85-092bf8242b89",
             "collection_type": 1,
             "offset": 4,
             "limit": 2
         }
-    ],
+    },
     "config": []
 }

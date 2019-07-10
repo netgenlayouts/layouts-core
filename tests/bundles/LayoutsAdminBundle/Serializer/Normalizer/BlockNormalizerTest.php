@@ -126,9 +126,9 @@ final class BlockNormalizerTest extends TestCase
                 'is_translatable' => $block->isTranslatable(),
                 'always_available' => $block->isAlwaysAvailable(),
                 'is_container' => false,
-                'placeholders' => ['data'],
+                'placeholders' => ['main' => 'data'],
                 'collections' => [
-                    [
+                    'default' => [
                         'identifier' => 'default',
                         'collection_id' => $collection->getId()->toString(),
                         'collection_type' => Collection::TYPE_MANUAL,

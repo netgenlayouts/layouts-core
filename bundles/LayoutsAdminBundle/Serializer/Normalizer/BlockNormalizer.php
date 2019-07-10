@@ -35,7 +35,7 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
         $blockDefinition = $block->getDefinition();
 
         $parameters = $this->buildValues($block->getParameters());
-        $placeholders = $this->buildValues($block->getPlaceholders()->getValues());
+        $placeholders = $this->buildValues($block->getPlaceholders());
 
         $configuration = (function () use ($block): Generator {
             foreach ($block->getConfigs() as $configKey => $config) {
@@ -85,7 +85,7 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
     private function getBlockCollections(Block $block): Generator
     {
         foreach ($block->getCollections() as $identifier => $collection) {
-            yield [
+            yield $identifier => [
                 'identifier' => $identifier,
                 'collection_id' => $collection->getId()->toString(),
                 'collection_type' => $collection->hasQuery() ? Collection::TYPE_DYNAMIC : Collection::TYPE_MANUAL,
