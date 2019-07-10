@@ -16,8 +16,8 @@
         "en": "English",
         "hr": "Croatian"
     },
-    "zones": [
-        {
+    "zones": {
+        "bottom": {
             "identifier": "bottom",
             "name": "Bottom",
             "block_ids": [],
@@ -25,7 +25,7 @@
             "linked_layout_id": null,
             "linked_zone_identifier": null
         },
-        {
+        "left": {
             "identifier": "left",
             "name": "Left",
             "block_ids": [
@@ -35,7 +35,7 @@
             "linked_layout_id": null,
             "linked_zone_identifier": null
         },
-        {
+        "right": {
             "identifier": "right",
             "name": "Right",
             "block_ids": [
@@ -46,7 +46,7 @@
             "linked_layout_id": null,
             "linked_zone_identifier": null
         },
-        {
+        "top": {
             "identifier": "top",
             "name": "Top",
             "block_ids": [],
@@ -56,5 +56,5 @@
             "linked_layout_id": null,
             "linked_zone_identifier": null
         }
-    ]
+    }
 }

@@ -46,9 +46,10 @@ final class LayoutTypeNormalizer implements NormalizerInterface, NormalizerAware
     {
         foreach ($layoutType->getZones() as $zone) {
             $allowedBlockDefinitions = $zone->getAllowedBlockDefinitions();
+            $zoneIdentifier = $zone->getIdentifier();
 
-            yield [
-                'identifier' => $zone->getIdentifier(),
+            yield $zoneIdentifier => [
+                'identifier' => $zoneIdentifier,
                 'name' => $zone->getName(),
                 'allowed_block_definitions' => count($allowedBlockDefinitions) > 0 ?
                     $allowedBlockDefinitions :

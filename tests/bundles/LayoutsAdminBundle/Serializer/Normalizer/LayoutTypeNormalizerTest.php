@@ -56,12 +56,12 @@ final class LayoutTypeNormalizerTest extends TestCase
                 'name' => 'Layout type',
                 'icon' => '/icon.svg',
                 'zones' => [
-                    [
+                    'zone1' => [
                         'identifier' => 'zone1',
                         'name' => 'Zone 1',
                         'allowed_block_definitions' => ['title'],
                     ],
-                    [
+                    'zone2' => [
                         'identifier' => 'zone2',
                         'name' => 'Zone 2',
                         'allowed_block_definitions' => true,

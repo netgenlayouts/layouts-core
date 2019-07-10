@@ -116,7 +116,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
                 $data['linked_zone_identifier'] = $linkedZone->getIdentifier();
             }
 
-            yield $data;
+            yield $zoneIdentifier => $data;
         }
     }
 

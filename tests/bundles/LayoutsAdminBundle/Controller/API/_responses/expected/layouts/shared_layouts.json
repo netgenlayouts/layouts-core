@@ -16,8 +16,8 @@
         "available_locales": {
             "en": "English"
         },
-        "zones": [
-            {
+        "zones": {
+            "bottom": {
                 "identifier": "bottom",
                 "name": "Bottom",
                 "block_ids": [],
@@ -25,7 +25,7 @@
                 "linked_layout_id": null,
                 "linked_zone_identifier": null
             },
-            {
+            "left": {
                 "identifier": "left",
                 "name": "Left",
                 "block_ids": [],
@@ -33,7 +33,7 @@
                 "linked_layout_id": null,
                 "linked_zone_identifier": null
             },
-            {
+            "right": {
                 "identifier": "right",
                 "name": "Right",
                 "block_ids": [],
@@ -41,7 +41,7 @@
                 "linked_layout_id": null,
                 "linked_zone_identifier": null
             },
-            {
+            "top": {
                 "identifier": "top",
                 "name": "Top",
                 "block_ids": [],
@@ -49,7 +49,7 @@
                 "linked_layout_id": null,
                 "linked_zone_identifier": null
             }
-        ]
+        }
     },
     {
         "id": "d8e55af7-cf62-5f28-ae15-331b457d82e9",
@@ -68,8 +68,8 @@
         "available_locales": {
             "en": "English"
         },
-        "zones": [
-            {
+        "zones": {
+            "bottom": {
                 "identifier": "bottom",
                 "name": "Bottom",
                 "block_ids": [],
@@ -77,7 +77,7 @@
                 "linked_layout_id": null,
                 "linked_zone_identifier": null
             },
-            {
+            "left": {
                 "identifier": "left",
                 "name": "Left",
                 "block_ids": [],
@@ -85,7 +85,7 @@
                 "linked_layout_id": null,
                 "linked_zone_identifier": null
             },
-            {
+            "right": {
                 "identifier": "right",
                 "name": "Right",
                 "block_ids": [],
@@ -93,7 +93,7 @@
                 "linked_layout_id": null,
                 "linked_zone_identifier": null
             },
-            {
+            "top": {
                 "identifier": "top",
                 "name": "Top",
                 "block_ids": [],
@@ -101,6 +101,6 @@
                 "linked_layout_id": null,
                 "linked_zone_identifier": null
             }
-        ]
+        }
     }
 ]

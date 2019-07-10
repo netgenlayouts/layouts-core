@@ -183,7 +183,7 @@ final class LayoutNormalizerTest extends TestCase
                     'hr' => 'Croatian',
                 ],
                 'zones' => [
-                    [
+                    'left' => [
                         'identifier' => 'left',
                         'name' => 'Left',
                         'block_ids' => [$blockUuid->toString()],
@@ -191,7 +191,7 @@ final class LayoutNormalizerTest extends TestCase
                         'linked_layout_id' => null,
                         'linked_zone_identifier' => null,
                     ],
-                    [
+                    'right' => [
                         'identifier' => 'right',
                         'name' => 'Right',
                         'block_ids' => [],
@@ -199,7 +199,7 @@ final class LayoutNormalizerTest extends TestCase
                         'linked_layout_id' => $uuid2->toString(),
                         'linked_zone_identifier' => 'top',
                     ],
-                    [
+                    'missing' => [
                         'identifier' => 'missing',
                         'name' => 'missing',
                         'block_ids' => [],
