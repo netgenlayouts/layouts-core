@@ -38,9 +38,23 @@ final class LoadConfigTest extends JsonApiTestCase
         $responseContent = json_decode((string) $response->getContent(), true);
 
         self::assertIsArray($responseContent);
-        self::assertArrayHasKey('csrf_token', $responseContent);
 
-        self::assertIsString($responseContent['csrf_token']);
-        self::assertSame($currentToken->getValue(), $responseContent['csrf_token']);
+        self::assertArrayHasKey('config', $responseContent);
+        self::assertArrayHasKey('layout_types', $responseContent);
+        self::assertArrayHasKey('block_types', $responseContent);
+        self::assertArrayHasKey('block_type_groups', $responseContent);
+
+        self::assertArrayHasKey('csrf_token', $responseContent['config']);
+        self::assertIsString($responseContent['config']['csrf_token']);
+        self::assertSame($currentToken->getValue(), $responseContent['config']['csrf_token']);
+
+        self::assertIsArray($responseContent['layout_types']);
+        self::assertNotEmpty($responseContent['layout_types']);
+
+        self::assertIsArray($responseContent['block_types']);
+        self::assertNotEmpty($responseContent['block_types']);
+
+        self::assertIsArray($responseContent['block_type_groups']);
+        self::assertNotEmpty($responseContent['block_type_groups']);
     }
 }
