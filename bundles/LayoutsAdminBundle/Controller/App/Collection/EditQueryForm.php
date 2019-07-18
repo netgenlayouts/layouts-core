@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Collection\Form\QueryEditType;
+use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,29 +32,16 @@ final class EditQueryForm extends AbstractController
      */
     public function __invoke(Query $query, string $locale, Request $request)
     {
-        $updateStruct = $this->collectionService->newQueryUpdateStruct($locale, $query);
-
         $form = $this->createForm(
             QueryEditType::class,
-            $updateStruct,
-            [
-                'query' => $query,
-                'action' => $this->generateUrl(
-                    'nglayouts_app_collection_query_form_edit',
-                    [
-                        'queryId' => $query->getId()->toString(),
-                        'locale' => $locale,
-                    ]
-                ),
-            ]
+            $this->collectionService->newQueryUpdateStruct($locale, $query),
+            ['query' => $query]
         );
 
         $form->handleRequest($request);
 
         if (!$form->isSubmitted()) {
-            $this->denyAccessUnlessGranted('nglayouts:api:read');
-
-            return $this->buildView($form, ViewInterface::CONTEXT_APP);
+            throw new RuntimeException('Form not submitted.');
         }
 
         $this->denyAccessUnlessGranted('nglayouts:collection:edit');

@@ -1,4 +1,4 @@
-{{ form_start(form) }}
+{{ form_start(form, action is defined ? {'action': action} : {}) }}
     {{ form_errors(form) }}
 
     {% block children %}{% endblock %}

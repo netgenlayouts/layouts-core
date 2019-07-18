@@ -229,6 +229,9 @@ services:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Block\Edit
         public: true
         parent: netgen_layouts.controller.base
+        arguments:
+            - "@netgen_layouts.api.service.block"
+            - "@netgen_layouts.api.service.collection"
 
     netgen_layouts.controller.app.block.edit_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Block\EditForm

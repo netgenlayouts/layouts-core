@@ -1,11 +1,14 @@
 {% set collection_identifier = collection_identifier|default('default') %}
 
-{% if block.hasCollection(collection_identifier) %}
+{% if block.hasCollection(collection_identifier) and forms.collection is defined %}
     {% set collection = block.collection(collection_identifier) %}
 
-    <div
+    <div data-form
         data-query-form="true"
-        data-form="{{ path('nglayouts_app_collection_collection_form_edit', {'collectionId': collection.id.toString}) }}"
         data-input {% if block.locale != block.mainLocale %}data-disabled="true"{% endif %}>
+        {{ nglayouts_render_value(
+            forms.collection,
+            {'action': path('nglayouts_app_collection_collection_form_edit', {'collectionId': collection.id.toString})}
+        ) }}
     </div>
 {% endif %}

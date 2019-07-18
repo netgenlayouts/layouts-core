@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,30 +32,16 @@ final class EditForm extends AbstractController
      */
     public function __invoke(Block $block, string $locale, string $formName, Request $request)
     {
-        $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
-
         $form = $this->createForm(
             $block->getDefinition()->getForm($formName)->getType(),
-            $updateStruct,
-            [
-                'block' => $block,
-                'action' => $this->generateUrl(
-                    'nglayouts_app_block_form_edit',
-                    [
-                        'blockId' => $block->getId()->toString(),
-                        'locale' => $locale,
-                        'formName' => $formName,
-                    ]
-                ),
-            ]
+            $this->blockService->newBlockUpdateStruct($locale, $block),
+            ['block' => $block]
         );
 
         $form->handleRequest($request);
 
         if (!$form->isSubmitted()) {
-            $this->denyAccessUnlessGranted('nglayouts:api:read');
-
-            return $this->buildView($form, ViewInterface::CONTEXT_APP);
+            throw new RuntimeException('Form not submitted.');
         }
 
         $this->denyAccessUnlessGranted(

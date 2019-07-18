@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\Collection\Form\CollectionEditType;
+use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,28 +32,16 @@ final class EditCollectionForm extends AbstractController
      */
     public function __invoke(Collection $collection, Request $request)
     {
-        $updateStruct = $this->collectionService->newCollectionUpdateStruct($collection);
-
         $form = $this->createForm(
             CollectionEditType::class,
-            $updateStruct,
-            [
-                'collection' => $collection,
-                'action' => $this->generateUrl(
-                    'nglayouts_app_collection_collection_form_edit',
-                    [
-                        'collectionId' => $collection->getId()->toString(),
-                    ]
-                ),
-            ]
+            $this->collectionService->newCollectionUpdateStruct($collection),
+            ['collection' => $collection]
         );
 
         $form->handleRequest($request);
 
         if (!$form->isSubmitted()) {
-            $this->denyAccessUnlessGranted('nglayouts:api:read');
-
-            return $this->buildView($form, ViewInterface::CONTEXT_APP);
+            throw new RuntimeException('Form not submitted.');
         }
 
         $this->denyAccessUnlessGranted('nglayouts:collection:edit');
