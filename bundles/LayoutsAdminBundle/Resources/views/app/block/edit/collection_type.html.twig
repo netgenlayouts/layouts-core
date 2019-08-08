@@ -66,7 +66,7 @@
         <div class="form js-dependable-selects-group">
             <div>
                 <label for="collection-type">{{ 'block.edit.collection_type'|trans }} <span class="ngl-tooltip" title="{{ 'block.edit.collection_type.tooltip'|trans }}"><i class="material-icons">help</i></span></label>
-                <select id="collection-type" name="block_collection[new_type]" class="js-skip-on-change js-master js-always-show">
+                <select id="collection-type" name="new_type" class="js-master">
                     {% if allowed_value_types|length > 0 %}
                         <option {% if not collection.hasQuery %} selected="selected" {% endif %} value="{{ type_manual }}">{{ collection_types[type_manual] }}</option>
                     {% endif %}
@@ -81,7 +81,7 @@
             {% if allowed_query_types|length > 0 %}
                 <div class="js-dependable" data-linked-value="{{ type_dynamic }}">
                     <label for="query-types">{{ 'block.edit.query_type'|trans }}</label>
-                    <select id="query-types" name="block_collection[query_type]" class="js-skip-on-change">
+                    <select id="query-types" name="query_type">
                         {% for query_type in query_types %}
                             {% set is_selected = collection.hasQuery and collection.query.queryType.type == query_type.type %}
 

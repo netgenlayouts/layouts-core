@@ -18,20 +18,18 @@
         {% include '@NetgenLayoutsAdmin/app/block/edit/collection.html.twig' %}
         {% include '@NetgenLayoutsAdmin/app/block/edit/collection_items.html.twig' %}
     {% elseif forms.content is defined and forms.design is defined %}
-        <div id="aside-tabs">
-            <ul class="aside-tab-control">
-                <li><a id="content">{{ 'block.edit.tabs.content'|trans }}</a></li>
-                <li><a id="design">{{ 'block.edit.tabs.design'|trans }}</a></li>
-            </ul>
+        <div data-component="tabs">
+            <a data-component="tab-control" data-target-tab="content">{{ 'block.edit.tabs.content'|trans }}</a>
+            <a data-component="tab-control" data-target-tab="design">{{ 'block.edit.tabs.design'|trans }}</a>
 
-            <div class="tab-pane" id="content-tab">
+            <div data-component="tab-pane" data-tab="content">
                 {% if block.definition.collections is not empty %}
                     <div class="sidebar-panel">
                         <a class="toggle-link" role="button" data-toggle="collapse" href="#collapseSettings" aria-expanded="true" aria-controls="collapseSettings">
                             {{ 'block.edit.options'|trans }}
                         </a>
 
-                        <div class="collapse in" id="collapseSettings">
+                        <div class="collapse" id="collapseSettings">
                             <div data-form>
                                 {{ nglayouts_render_value(
                                     forms.content,
@@ -56,7 +54,7 @@
                 {% endif %}
             </div>
 
-            <div class="tab-pane" id="design-tab">
+            <div data-component="tab-pane" data-tab="design">
                 <div data-form>
                     {{ nglayouts_render_value(
                         forms.design,
