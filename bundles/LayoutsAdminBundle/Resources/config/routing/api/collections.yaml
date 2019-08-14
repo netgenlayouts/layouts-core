@@ -5,6 +5,13 @@ nglayouts_app_api_collections_load:
     defaults:
         _nglayouts_status: draft
 
+nglayouts_app_api_collections_load_result:
+    path: /{locale}/collections/{collectionId}/result
+    controller: netgen_layouts.controller.api.collection.load_collection_result
+    methods: [GET]
+    defaults:
+        _nglayouts_status: draft
+
 nglayouts_app_api_collections_items:
     path: /collections/{collectionId}/items
     controller: netgen_layouts.controller.api.collection.load_items

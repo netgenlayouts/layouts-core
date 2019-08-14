@@ -521,20 +521,19 @@ services:
         calls:
             - [setValidator, ["@validator"]]
 
-
-    netgen_layouts.controller.api.block_collection.load_collection_result:
-        class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\LoadCollectionResult
-        public: true
-        parent: netgen_layouts.controller.base
-        arguments:
-            - "@netgen_layouts.collection.result.pagerfanta.factory"
-
     ## Collection controllers
 
     netgen_layouts.controller.api.collection.load_collection:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\LoadCollection
         public: true
         parent: netgen_layouts.controller.base
+
+    netgen_layouts.controller.api.collection.load_collection_result:
+        class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\LoadCollectionResult
+        public: true
+        parent: netgen_layouts.controller.base
+        arguments:
+            - "@netgen_layouts.collection.result.pagerfanta.factory"
 
     netgen_layouts.controller.api.collection.load_items:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\LoadItems

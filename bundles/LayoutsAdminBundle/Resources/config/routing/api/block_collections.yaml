@@ -1,10 +1,3 @@
-nglayouts_app_api_block_collections_result:
-    path: /blocks/{blockId}/collections/{collectionIdentifier}/result
-    controller: netgen_layouts.controller.api.block_collection.load_collection_result
-    methods: [GET]
-    defaults:
-        _nglayouts_status: draft
-
 nglayouts_app_api_block_collections_add_items:
     path: /blocks/{blockId}/collections/{collectionIdentifier}/items
     controller: netgen_layouts.controller.api.block_collection.add_items

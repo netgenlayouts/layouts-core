@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection;
+namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection;
 
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
-use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\Layouts\Collection\Result\ResultSet;
 
@@ -25,11 +25,9 @@ final class LoadCollectionResult extends AbstractController
     /**
      * Returns the collection result.
      */
-    public function __invoke(Block $block, string $collectionIdentifier): Value
+    public function __invoke(Collection $collection): Value
     {
         $this->denyAccessUnlessGranted('nglayouts:api:read');
-
-        $collection = $block->getCollection($collectionIdentifier);
 
         // In non AJAX scenarios, we're always rendering the first page of the collection
         // as specified by offset and limit in the collection itself
