@@ -16,6 +16,7 @@ use Netgen\Layouts\Collection\Result\Result;
 use Netgen\Layouts\Collection\Result\ResultSet;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Serializer;
 
 final class CollectionResultSetNormalizerTest extends TestCase
@@ -46,19 +47,28 @@ final class CollectionResultSetNormalizerTest extends TestCase
         $result1 = new Result(0, new ManualItem($item2));
         $result2 = new Result(1, new ManualItem($item3));
 
+        $collection = Collection::fromArray(
+            [
+                'id' => Uuid::uuid4(),
+                'offset' => 3,
+                'limit' => 6,
+                'items' => new ArrayCollection([$item1, $item2, $item3, $item4]),
+            ]
+        );
+
         $result = ResultSet::fromArray(
             [
-                'collection' => Collection::fromArray(
-                    [
-                        'items' => new ArrayCollection([$item1, $item2, $item3, $item4]),
-                    ]
-                ),
+                'collection' => $collection,
                 'results' => [$result1, $result2],
             ]
         );
 
         self::assertSame(
             [
+                'collection_id' => $collection->getId()->toString(),
+                'collection_type' => Collection::TYPE_MANUAL,
+                'offset' => $collection->getOffset(),
+                'limit' => $collection->getLimit(),
                 'items' => ['data', 'data'],
                 'overflow_items' => ['data', 'data'],
             ],

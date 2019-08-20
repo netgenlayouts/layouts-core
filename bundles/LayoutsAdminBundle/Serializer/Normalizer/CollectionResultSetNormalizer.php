@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer;
 
 use Generator;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
+use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\Collection\Result\ManualItem;
 use Netgen\Layouts\Collection\Result\ResultSet;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -21,10 +22,15 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
         /** @var \Netgen\Layouts\Collection\Result\ResultSet $resultSet */
         $resultSet = $object->getValue();
 
+        $collection = $resultSet->getCollection();
         $results = $this->buildValues($resultSet);
         $overflowItems = $this->buildValues($this->getOverflowItems($resultSet));
 
         return [
+            'collection_id' => $collection->getId()->toString(),
+            'collection_type' => $collection->hasQuery() ? Collection::TYPE_DYNAMIC : Collection::TYPE_MANUAL,
+            'offset' => $collection->getOffset(),
+            'limit' => $collection->getLimit(),
             'items' => $this->normalizer->normalize($results, $format, $context),
             'overflow_items' => $this->normalizer->normalize($overflowItems, $format, $context),
         ];
