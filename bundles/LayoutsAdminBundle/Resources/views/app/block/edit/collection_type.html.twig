@@ -43,38 +43,36 @@
     {% set type_manual = constant('TYPE_MANUAL', collection) %}
     {% set type_dynamic = constant('TYPE_DYNAMIC', collection) %}
 
-    {% set collection_types = {
-        (type_manual): 'block.edit.collection_type.manual_collection'|trans,
-        (type_dynamic): 'block.edit.collection_type.dynamic_collection'|trans,
-    } %}
-
-
     {% set editable_options = [] %}
     {% set child_selects = [] %}
+
     {% if allowed_value_types|length > 0 %}
         {% set editable_options = editable_options|merge([{
-            label: collection_types[type_manual],
+            label: 'block.edit.collection_type.manual_collection'|trans,
             selected: not collection.hasQuery,
             value: type_manual,
         }]) %}
     {% endif %}
+
     {% if allowed_query_types|length > 0 %}
         {% set editable_options = editable_options|merge([{
-            label: collection_types[type_dynamic],
+            label: 'block.edit.collection_type.dynamic_collection'|trans,
             selected: collection.hasQuery,
             value: type_dynamic,
         }]) %}
+
         {% set child_options = [] %}
+
         {% for query_type in query_types %}
-            {% set is_selected = collection.hasQuery and collection.query.queryType.type == query_type.type %}
             {% if query_type in allowed_query_types %}
                 {% set child_options = child_options|merge([{
                     label: query_type.name,
-                    selected: is_selected,
+                    selected: collection.hasQuery and collection.query.queryType.type == query_type.type,
                     value: query_type.type,
                 }]) %}
             {% endif %}
         {% endfor %}
+
         {% set child_selects = child_selects|merge([{
             name: 'query_type',
             label: 'block.edit.query_type'|trans,
@@ -82,6 +80,7 @@
             linkedWith: type_dynamic,
         }]) %}
     {% endif %}
+
     {% set editable_data = {
         parentSelect: {
             name: 'new_type',
