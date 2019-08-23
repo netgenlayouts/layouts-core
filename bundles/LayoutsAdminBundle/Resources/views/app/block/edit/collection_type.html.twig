@@ -92,5 +92,5 @@
         childSelects: child_selects,
     } %}
 
-    <div data-component="changeCollectionType" data-component-data="{{ editable_data|json_encode }}"></div>
+    <div data-component="changeCollectionType" data-component-data="{{ editable_data|json_encode }}" {% if block.locale != block.mainLocale %}data-disabled="true"{% endif %}></div>
 {% endif %}
