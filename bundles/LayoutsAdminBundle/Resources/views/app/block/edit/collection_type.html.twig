@@ -48,55 +48,50 @@
         (type_dynamic): 'block.edit.collection_type.dynamic_collection'|trans,
     } %}
 
-    <div class="xeditable" data-input data-xeditable-name="collection_type" {% if block.locale != block.mainLocale %}data-disabled="true"{% endif %}>
-        <div class="current">
-            <label>{{ 'block.edit.collection_type'|trans }} <span class="ngl-tooltip" title="{{ 'block.edit.collection_type.tooltip'|trans }}"><i class="material-icons">help</i></span></label>
 
-            <a href="#" class="js-edit">
-                <span class="text">{{ collection_types[collection.hasQuery ? type_dynamic : type_manual] }}</span>
-                <span class="icon">{{ 'block.edit.change'|trans }}</span>
-            </a>
-
-            {% if collection.hasQuery and allowed_query_types|length > 1 %}
-                <label>{{ 'block.edit.query_type'|trans }}</label>
-                <a href="#" class="js-edit"><span class="text">{{ collection.query.queryType.name }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
+    {% set editable_options = [] %}
+    {% set child_selects = [] %}
+    {% if allowed_value_types|length > 0 %}
+        {% set editable_options = editable_options|merge([{
+            label: collection_types[type_manual],
+            selected: not collection.hasQuery,
+            value: type_manual,
+        }]) %}
+    {% endif %}
+    {% if allowed_query_types|length > 0 %}
+        {% set editable_options = editable_options|merge([{
+            label: collection_types[type_dynamic],
+            selected: collection.hasQuery,
+            value: type_dynamic,
+        }]) %}
+        {% set child_options = [] %}
+        {% for query_type in query_types %}
+            {% set is_selected = collection.hasQuery and collection.query.queryType.type == query_type.type %}
+            {% if query_type in allowed_query_types %}
+                {% set child_options = child_options|merge([{
+                    label: query_type.name,
+                    selected: is_selected,
+                    value: query_type.type,
+                }]) %}
             {% endif %}
-        </div>
+        {% endfor %}
+        {% set child_selects = child_selects|merge([{
+            name: 'query_type',
+            label: 'block.edit.query_type'|trans,
+            options: child_options,
+            linkedWith: type_dynamic,
+        }]) %}
+    {% endif %}
+    {% set editable_data = {
+        parentSelect: {
+            name: 'new_type',
+            label: 'block.edit.collection_type'|trans,
+            labelTooltip: 'block.edit.collection_type.tooltip'|trans,
+            options: editable_options,
+            note: 'block.edit.notice.change_collection_type'|trans,
+        },
+        childSelects: child_selects,
+    } %}
 
-        <div class="form js-dependable-selects-group">
-            <div>
-                <label for="collection-type">{{ 'block.edit.collection_type'|trans }} <span class="ngl-tooltip" title="{{ 'block.edit.collection_type.tooltip'|trans }}"><i class="material-icons">help</i></span></label>
-                <select id="collection-type" name="new_type" class="js-master">
-                    {% if allowed_value_types|length > 0 %}
-                        <option {% if not collection.hasQuery %} selected="selected" {% endif %} value="{{ type_manual }}">{{ collection_types[type_manual] }}</option>
-                    {% endif %}
-
-                    {% if allowed_query_types|length > 0 %}
-                        <option {% if collection.hasQuery %} selected="selected" {% endif %} value="{{ type_dynamic }}">{{ collection_types[type_dynamic] }}</option>
-                    {% endif %}
-                </select>
-                <p class="input-note">{{ 'block.edit.notice.change_collection_type'|trans }}</p>
-            </div>
-
-            {% if allowed_query_types|length > 0 %}
-                <div class="js-dependable" data-linked-value="{{ type_dynamic }}">
-                    <label for="query-types">{{ 'block.edit.query_type'|trans }}</label>
-                    <select id="query-types" name="query_type">
-                        {% for query_type in query_types %}
-                            {% set is_selected = collection.hasQuery and collection.query.queryType.type == query_type.type %}
-
-                            {% if query_type in allowed_query_types %}
-                                <option {% if is_selected %} selected="selected" {% endif %} value="{{ query_type.type }}">{{ query_type.name }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                </div>
-            {% endif %}
-
-            <div class="actions">
-                <a href="#" class="btn btn-link js-cancel">{{ 'block.edit.cancel'|trans }}</a>
-                <a href="#" class="btn btn-primary js-apply">{{ 'block.edit.apply'|trans }}</a>
-            </div>
-        </div>
-    </div>
+    <div data-component="changeCollectionType" data-component-data="{{ editable_data|json_encode }}"></div>
 {% endif %}
